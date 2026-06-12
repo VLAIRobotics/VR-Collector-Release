@@ -222,21 +222,7 @@ cameras:
 
 ## 5. 数据采集流程
 
-### 5.1 整体架构
-
-```mermaid
-flowchart TD
-    VR[VR 头显/手柄] -->|XR 设备数据| T[teleop_node]
-    T -->|关节目标 + 夹爪目标| H[hardware_node]
-    H -->|CAN 总线 MIT 控制| M[双臂电机]
-    M -->|关节反馈| H
-    H -->|关节观测| R[recorder_node]
-    T -->|关节目标| R
-    CAM[相机] -->|图像| R
-    R -->|LeRobot v3.0| D[(数据集)]
-```
-
-### 5.2 节点启动顺序
+### 5.1 节点启动顺序
 
 `xarm collect` 按以下顺序启动并等待就绪（前一个节点的话题就绪后才启动下一个）：
 
@@ -244,7 +230,7 @@ flowchart TD
 2. **teleop_node** — 连接 VR 设备，加载仿真模型，开始发布关节目标（等待 `/dual_xarm/action/joints_position`）
 3. **recorder_node** — 开始按帧率采集数据
 
-### 5.3 ROS2 话题
+### 5.2 ROS2 话题
 
 | 		  话题 			       | 	    类型 	  | 	  方向 		|    说明      |
 |------------------------------------------|---------------------|----------------------|--------------|
@@ -255,21 +241,7 @@ flowchart TD
 
 ---
 
-## 6. 快速上手流程
-
-```mermaid
-flowchart TD
-    A0["conda create -n xarm python=3.10 && conda activate xarm"] --> A["pip install xarm_sdk-1.0.0-py3-none-any.whl"]
-    A --> A2["xarm install"]
-    A2 --> B["xarm init --output my_config.yaml"]
-    B --> C[编辑配置文件]
-    C --> D["xarm setup-can --config my_config.yaml"]
-    D --> E["xarm check --config my_config.yaml"]
-    E --> F["xarm collect --config my_config.yaml"]
-    F --> G[VR 遥操作采集数据]
-    G --> H["Ctrl+C 停止并保存"]
-```
-
+## 6. 常见问题排查
 完整操作示例：
 
 ```bash
@@ -283,7 +255,7 @@ pip install xarm_sdk-1.0.0-py3-none-any.whl
 # 3. 安装运行依赖（运行 wheel 内置的 install.sh）
 xarm install
 
-# 4. 生成配置
+# 4. 生成配置（只需执行一次）
 xarm init --output my_config.yaml
 
 # 5. 修改配置（按实际硬件调整 CAN 接口名、控制参数等）
@@ -299,7 +271,6 @@ xarm check --config my_config.yaml
 xarm collect --config my_config.yaml
 ```
 
----
 
 ## 7. 常见问题排查
 
@@ -317,7 +288,7 @@ xarm collect --config my_config.yaml
 
 1. USB-CAN 适配器是否正确连接
 2. CAN 接口是否存在：`ip link show can2`
-3. 运行 `xarm setup-can --config my_config.yaml`（需要 sudo）
+3. 运行 `xarm setup-can --config my_config.yaml`
 
 ### 7.3 `xarm check` 报依赖缺失
 
@@ -351,8 +322,6 @@ sudo ufw disable
 hostname -I                     # 取 192.168.x.x 这类局域网地址
 ip addr show                    # 找 wlan*/wlp* 网卡下的 inet
 ```
-
-填 `192.168.x.x`，不要填 `127.0.0.1`，也不要填 `172.17.x.x`（docker）。
 
 **3. 确认 PC 服务确实对外监听**
 
