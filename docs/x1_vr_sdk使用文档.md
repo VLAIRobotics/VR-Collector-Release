@@ -1,4 +1,4 @@
-# xarm SDK 使用指南
+# X1 VR SDK 使用指南
 
 ## 1. 文档目标
 
@@ -159,7 +159,7 @@ xarm collect --config my_config.yaml
 2. **teleop_node** — VR 遥操作节点，连接 VR 设备并加载仿真模型，等待 `/dual_xarm/action/joints_position` 话题就绪
 3. **recorder_node** — 数据采集节点，开始按帧率录制
 
-按 **Ctrl+C** 停止采集并保存数据集。
+按 **q** 停止采集并保存数据集，不要通过 **Ctrl + C** 停止，可能会损坏数据集。
 
 ---
 
@@ -250,7 +250,9 @@ conda create -n xarm python=3.10 -y
 conda activate xarm
 
 # 2. 安装 wheel
-pip install xarm_sdk-1.0.0-py3-none-any.whl
+pip install <whl 文件名>
+如：
+pip install x1_vr_sdk-1.0.0-py3-none-any.whl
 
 # 3. 安装运行依赖（运行 wheel 内置的 install.sh）
 xarm install
@@ -261,15 +263,21 @@ xarm init --output my_config.yaml
 # 5. 修改配置（按实际硬件调整 CAN 接口名、控制参数等）
 vim my_config.yaml
 
-# 6. 配置 CAN 接口
-xarm setup-can --config my_config.yaml
-
-# 7. 检查环境
+# 6. 检查环境
 xarm check --config my_config.yaml
+
+# 7. 配置 CAN 接口
+xarm setup-can --config my_config.yaml
 
 # 8. 开始采集（每个新终端先 source /opt/ros/humble/setup.bash）
 xarm collect --config my_config.yaml
+
+# 9. 卸载 wheel
+pip uninstall x1_vr_sdk-1.0.0-py3-none-any.whl
 ```
+
+
+
 
 
 ## 7. 常见问题排查
@@ -348,6 +356,10 @@ sudo ss -tlnp | grep -i robotics
 1. 配置文件中 `left_can` / `right_can` 是否与实际接口一致。
 若  can 接口不一致，可按下面的方法确定 can 接口（前提：使用到的 CAN 接口都已配置成功）：
 ```bash
+# 执行 docs 文件夹中的 setup_can_interfaces.sh 对所有 can 接口进行配置：
+cd docs
+bash ./setup_can_interfaces.sh
+
 # 对 can0 id 为 008 的电机（夹爪）发送使能帧
 cansend can0 008#FFFFFFFFFFFFFFFC 
 
@@ -387,7 +399,7 @@ cansend can3 008#FFFFFFFFFFFFFFFC
 
 | 		文件 		         |					 说明					             |
 |-----------------------------------|---------------------------------------------------------------------------------|
-| `xarm_sdk-1.0.0-py3-none-any.whl` | SDK 安装包（依赖安装脚本 `install.sh` 及所有 `.so` 运行时库均已内置，无需额外文件） |
-| `xarm_sdk使用文档.md` 	    | 本文档 									             |
+| `x1_vr_sdk-1.0.0-py3-none-any.whl` | SDK 安装包（依赖安装脚本 `install.sh` 及所有 `.so` 运行时库均已内置，无需额外文件） |
+| `x1_vr_sdk使用文档.md` 	    | 本文档 									             |
 
 > **适用范围** —— 该 wheel 为 **Linux x86_64 + Python 3.10** 编译产物，仅在此环境可用；其他平台/Python 版本需在对应环境重新编译打包。
