@@ -241,7 +241,7 @@ cameras:
 
 ---
 
-## 6. 常见问题排查
+## 6. 快速上手流程
 完整操作示例：
 
 ```bash
@@ -252,7 +252,7 @@ conda activate xarm
 # 2. 安装 wheel
 pip install <whl 文件名>
 如：
-pip install x1_vr_sdk-1.0.0-py3-none-any.whl
+pip install x1_vr_sdk-1.0.0_x86_64.whl
 
 # 3. 安装运行依赖（运行 wheel 内置的 install.sh）
 xarm install
@@ -273,7 +273,7 @@ xarm setup-can --config my_config.yaml
 xarm collect --config my_config.yaml
 
 # 9. 卸载 wheel
-pip uninstall x1_vr_sdk-1.0.0-py3-none-any.whl
+pip uninstall x1_vr_sdk-1.0.0_x86_64.whl
 ```
 
 
