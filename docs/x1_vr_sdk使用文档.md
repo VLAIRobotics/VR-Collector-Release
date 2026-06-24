@@ -261,7 +261,7 @@ xarm install
 xarm init --output my_config.yaml
 
 # 5. 修改配置（按实际硬件调整 CAN 接口名、控制参数等）
-vim my_config.yaml
+进入 my_config.yaml 修改，Ctrl S 保存
 
 # 6. 检查环境
 xarm check --config my_config.yaml
