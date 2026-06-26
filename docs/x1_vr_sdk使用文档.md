@@ -252,7 +252,7 @@ conda activate xarm
 # 2. 安装 wheel
 pip install <whl 文件名>
 如：
-pip install x1_vr_sdk-1.0.0_x86_64.whl
+pip install x1_vr_sdk-1.1.0-py3-none-any.whl
 
 # 3. 安装运行依赖（运行 wheel 内置的 install.sh）
 xarm install
@@ -273,7 +273,7 @@ xarm setup-can --config my_config.yaml
 xarm collect --config my_config.yaml
 
 # 9. 卸载 wheel
-pip uninstall x1_vr_sdk-1.0.0_x86_64.whl
+pip uninstall x1_vr_sdk
 ```
 
 
@@ -468,7 +468,7 @@ cansend can3 008#FFFFFFFFFFFFFFFC
 
 | 		文件 		         |					 说明					             |
 |-----------------------------------|---------------------------------------------------------------------------------|
-| `x1_vr_sdk-1.0.0-py3-none-any.whl` | SDK 安装包（依赖安装脚本 `install.sh` 及所有 `.so` 运行时库均已内置，无需额外文件） |
+| `x1_vr_sdk-1.1.0-py3-none-any.whl` | SDK 安装包（依赖安装脚本 `install.sh` 及所有 `.so` 运行时库均已内置，无需额外文件） |
 | `x1_vr_sdk使用文档.md` 	    | 本文档 									             |
 
 > **适用范围** —— 该 wheel 为 **Linux x86_64 + Python 3.10** 编译产物，仅在此环境可用；其他平台/Python 版本需在对应环境重新编译打包。
